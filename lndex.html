@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إعلان Caramela Cake</title>
+    <style>
+        /* ------------------------------------------- */
+        /* تصميم CSS موحد */
+        /* ------------------------------------------- */
+
+        :root {
+            /* الألوان الأساسية */
+            --main-brown: #6D4C41; /* بني هادئ وداكن للخلفية */
+            --light-brown: #A1887F; /* بني فاتح للعناصر */
+            --beige: #F5F5DC; /* لون البيج اللامع للمربعات */
+            --white: #FFFFFF;
+            --dark-text: #4E342E; /* نص بني داكن */
+            --glow-color: #FFECB3; /* لون اللمعان الخفيف */
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--main-brown);
+            color: var(--white);
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            /* إضافة نجوم لامعة للخلفية */
+            background-image: radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+                              radial-gradient(circle at 90% 80%, rgba(255, 255, 255, 0.15) 1px, transparent 1.5px),
+                              radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.05) 1.5px, transparent 2px);
+            background-size: 50px 50px, 80px 80px, 100px 100px;
+            min-height: 100vh;
+        }
+
+        /* ------------------------------------------- */
+        /* الأنماط العامة */
+        /* ------------------------------------------- */
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            padding: 40px 20px;
+            margin-bottom: 30px;
+            background: rgba(0, 0, 0, 0.1); /* شفافية خفيفة */
+            border-radius: 10px;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin: 0;
+            /* مائل وعريض كما هو مطلوب */
+            font-style: italic; 
+            font-weight: bold;
+            color: var(--beige); 
+            letter-spacing: 2px;
+        }
+        /* تم إزالة وسم h1 span من HTML ولم يعد هناك حاجة لـ CSS الخاص به */
+
+        p.slogan {
+            font-size: 1.2em;
+            color: var(--glow-color);
+            margin-top: 15px;
+            font-style: italic;
+        }
+
+        /* ------------------------------------------- */
+        /* الأزرار */
+        /* ------------------------------------------- */
+
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            margin: 10px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            font-size: 1.1em;
+        }
+
+        #toggle-cakes-btn {
+            background-color: var(--light-brown);
+            color: var(--white);
+        }
+
+        #toggle-cakes-btn:hover {
+            background-color: #8D6E63; /* لون أغمق قليلاً */
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .instagram-btn {
+            background-color: #E1306C; /* لون الإنستغرام */
+            color: var(--white);
+            border: 2px solid var(--beige);
+        }
+
+        .instagram-btn:hover {
+            background-color: #C12A5C;
+            transform: scale(1.05);
+        }
+
+        /* ------------------------------------------- */
+        /* قسم الكعكات وأنواعها */
+        /* ------------------------------------------- */
+
+        #cakes-section {
+            display: none; /* مخفي افتراضياً */
+            margin-top: 40px;
+            padding: 30px 0;
+            background: rgba(255, 255, 255, 0.05); /* شريط خفيف لإبراز القسم */
+            border-radius: 10px;
+        }
+
+        #cakes-section.active {
+            display: block; /* يظهر عند إضافة كلاس active */
+        }
+
+        .cake-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .cake-item {
+            background-color: var(--beige);
+            color: var(--dark-text);
+            padding: 20px;
+            border-radius: 15px;
+            width: calc(33% - 40px); /* 3 كعكات في الصف الواحد على الأغلب */
+            min-width: 250px;
+            box-shadow: 
+                0 0 15px rgba(255, 255, 255, 0.3), /* ظل لامع حول المربع */
+                0 5px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid var(--light-brown);
+        }
+
+        .cake-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 
+                0 0 25px var(--glow-color), /* زيادة اللمعان عند التمرير */
+                0 8px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .cake-item h3 {
+            margin-top: 0;
+            color: var(--main-brown);
+            font-size: 1.4em;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cake-item p {
+            font-size: 1em;
+            font-style: italic;
+            margin-top: 10px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* تأثير اللمعان على المربعات */
+        .cake-item::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 10%, transparent 70%);
+            opacity: 0.5;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .cake-item:hover::before {
+            opacity: 0.8;
+        }
+
+        /* ------------------------------------------- */
+        /* الفوتر (Footer) */
+        /* ------------------------------------------- */
+
+        .footer {
+            margin-top: 50px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.1);
+            border-top: 1px solid var(--light-brown);
+        }
+
+        .footer p {
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        /* ------------------------------------------- */
+        /* الأنماط المتجاوبة (Responsive) */
+        /* ------------------------------------------- */
+
+        @media (max-width: 768px) {
+            .cake-item {
+                width: calc(50% - 30px); /* 2 كعكات في الصف */
+            }
+            h1 {
+                font-size: 2.5em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .cake-item {
+                width: 100%; /* كعكة واحدة في الصف */
+            }
+            h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <header class="header">
+            <h1>
+                <i><b>كيك كراميلا (Caramela Cake)</b></i>
+            </h1>
+            <p class="slogan"> حيث يلتقي الذوق الرفيع بالفخامة الهادئة. </p>
+        </header>
+
+        <button id="toggle-cakes-btn" class="btn">
+            🌟 تعرف على أنواع الكعكات المميزة 🌟
+        </button>
+
+        <section id="cakes-section">
+            <h2>قائمة الكعكات الخاصة بنا</h2>
+            <div class="cake-grid">
+                
+                 <div class="cake-item">
+                    <h3>كب كيك (Cupcake)</h3>
+                    <p>صغير الحجم، كبير اللذة! مثالي للحفلات الصغيرة أو كحلوى فردية سريعة. اختر النكهة التي تبهج قلبك.</p>
+                </div>
+
+                <div class="cake-item">
+                    <h3>كيك مقطع (Slice Cake)</h3>
+                    <p>المذاق المثالي في قطعة واحدة! جرّب تشكيلة النكهات المختلفة دون التزام بكعكة كاملة.</p>
+                </div>
+
+                <div class="cake-item">
+                    <h3>كيك بطعم السڤن (Seven Up Cake)</h3>
+                    <p>**خليط الانتعاش والحلاوة!** نكهة مميزة تجمع بين حلاوة الكيك وانتعاش السڤن أب الفوّار. لا تُفوت التجربة!</p>
+                </div>
+
+                <div class="cake-item">
+                    <h3>كيك بركاني (Lava Cake)</h3>
+                    <p>انفجار الشوكولاتة الذائب! استمتع بلحظات الغموض مع قلب الشوكولاتة الدافئ الذي ينساب مع كل ملعقة. إغراء لا يُقاوم.</p>
+                </div>
+
+                <div class="cake-item">
+                    <h3>كيك حسب الشكل المطلوب (Custom Design Cake)</h3>
+                    <p>حوّل خيالك إلى حقيقة! صمم كعكتك الخاصة للمناسبات التي تحتاج إلى بصمة فريدة. نحن نترجم رؤيتك إلى فن.</p>
+                </div>
+
+                <div class="cake-item">
+                    <h3>كيك عادي (Classic Cake)</h3>
+                    <p>العودة إلى الأصالة. كعكة بمذاق الطفولة، مثالية للضيافة اليومية وجلسات الشاي الدافئة. البساطة في أروع صورها.</p>
+                </div>
+
+                <div class="cake-item">
+                    <h3>كيك عيد ميلاد (Birthday Cake)</h3>
+                    <p>أجعل يومك مميزًا! احتفل بلحظاتك السعيدة مع كعكة مصممة خصيصًا لتليق ببهجة عيد الميلاد. ذكريات لا تُنسى.</p>
+                </div>
+
+                <div class="cake-item">
+                    <h3>كيك أعراس (Wedding Cake)</h3>
+                    <p>لمسة الأناقة في يوم العمر. كعكة زفاف بتصاميم فاخرة ونكهات راقية، تليق بعظمة احتفالك. قمة الفخامة.</p>
+                </div>
+
+                <div class="cake-item">
+                    <h3>كيك شوكولاتة (Chocolate Cake)</h3>
+                    <p>عشاق الشوكولاتة، هذا لأجلكم! غوصوا في عالم النكهة الغنية والداكنة. جرعة سعادة لا تُضاهى.</p>
+                </div>
+
+                <div class="cake-item">
+                    <h3>كيك مع إضافة صورتك (Photo Cake)</h3>
+                    <p>كعكة تحمل قصتك! اطبع أجمل ذكرياتك على كعكة لتجعل الهدية شخصية ومؤثرة. أضف صورتك، وأضف سحراً.</p>
+                </div>
+
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>للاطلاع على أحدث التصاميم والطلب، تواصلوا معنا عبر الإنستغرام:</p>
+            <a href="https://www.instagram.com/cake_cramela?igsh=MWlnendoOHA2cjZiag==" target="_blank" class="btn instagram-btn">
+                📸 زيارة صفحة الانستغرام @cake_cramela
+            </a>
+        </footer>
+
+    </div>
+
+    <script>
+        document.getElementById('toggle-cakes-btn').addEventListener('click', function() {
+            var cakesSection = document.getElementById('cakes-section');
+            
+            // تبديل ظهور القسم عبر إضافة/إزالة كلاس 'active'
+            cakesSection.classList.toggle('active');
+
+            // تغيير نص الزر حسب حالة العرض
+            if (cakesSection.classList.contains('active')) {
+                this.textContent = '👆 إخفاء قائمة الكعكات 👆';
+            } else {
+                this.textContent = '🌟 تعرف على أنواع الكعكات المميزة 🌟';
+            }
+        });
+    </script>
+
+</body>
+  </html>
+  
